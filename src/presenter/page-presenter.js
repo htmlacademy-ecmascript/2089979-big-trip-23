@@ -9,16 +9,18 @@ export default class PagePresenter {
   tripEventsComponent = document.querySelector('.trip-events');
   tripEventsListComponent = new TripEventsListView();
 
-  constructor({pageContainer}) {
+  constructor({pageContainer, eventPointsModel}) {
     this.pageContainer = pageContainer;
+    this.eventPointsModel = eventPointsModel;
   }
 
   init() {
+    this.pageEventPoints = [...this.eventPointsModel.getPoints()];
     render(new ListSortView(), this.tripEventsComponent);
     render(this.tripEventsListComponent, this.tripEventsComponent);
 
-    for (let i = 0; i < 3; i++) {
-      render(this.tripEventsItemComponent = new TripEventsItemView(), this.tripEventsListComponent.getElement());
+    for (let i = 0; i < this.pageEventPoints.length; i++) {
+      render(this.tripEventsItemComponent = new TripEventsItemView({point: this.pageEventPoints[i]}), this.tripEventsListComponent.getElement());
       if (i === 0) {
         render(this.editPointComponent = new EditPointView(), this.tripEventsItemComponent.getElement());
       } else {
