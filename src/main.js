@@ -1,10 +1,9 @@
-import ListFilterView from './view/list-filter-view.js';
-import PagePresenter from './presenter/page-presenter.js';
-import {render} from './render.js';
+import EventPresenter from './presenter/event-presenter.js';
+import EventPointModel from './model/event-point-model.js';
 
-const siteHeaderElement = document.querySelector('.trip-controls__filters');
-const siteMainElement = document.querySelector('.page-body__page-main');
-const pagePresenter = new PagePresenter({pageContainer: siteMainElement});
+const siteFilterElement = document.querySelector('.trip-controls__filters');
+const siteMainElement = document.querySelector('.trip-events');
+const eventPointModel = new EventPointModel();
 
-render(new ListFilterView(), siteHeaderElement);
-pagePresenter.init();
+const presenter = new EventPresenter({headerContainer: siteFilterElement, mainContainer: siteMainElement, eventPointModel});
+presenter.init();
